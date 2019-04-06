@@ -7,7 +7,6 @@ import os
 app = Flask(__name__)
 oracle_connection_string = 'oracle+cx_oracle://{username}:{password}@{hostname}:{port}/{database}'
 
-print(os.environ.get('DB_USER'))
 # Physically connect to the Oracle Database
 engine = sq.create_engine(
     oracle_connection_string.format(
@@ -27,7 +26,7 @@ metadata = sq.MetaData()
 employees = sq.Table('employees', metadata, autoload=True, autoload_with=engine)
 
 # Access columns
-print(employees.columns.keys())
+columns = employees.columns.keys()
 
 # Access all contents
 # ------
@@ -46,30 +45,34 @@ query2 = sq.select([employees]).where(employees.columns.last_name == 'King')
 ResultProxy2 = connection.execute(query2)
 ResultSet2 = ResultProxy2.fetchall()
 
+print(columns)
 df2 = pd.DataFrame(ResultSet2)
-print(df2)
+df2.columns = columns
 
 
 @app.route('/')
-@app.route('/index')
-def index():
-    user = {'username' : 'Nikhita'}
+# @app.route('/index')
+# def index():
+#     user = {'username' : 'Nikhita'}
+#
+#     posts = [
+#         {
+#             'author': {'username' : 'John'},
+#             'body': 'Beautiful day in Portland'
+#         },
+#         {
+#             'author': {'username': 'Suzy'},
+#             'body': 'Not really'
+#         },
+#         {
+#             'author': {'username': 'Adam'},
+#             'body': '...'
+#         }
+#     ]
+#     return render_template('index.html', user=user, posts=posts)
 
-    posts = [
-        {
-            'author': {'username' : 'John'},
-            'body': 'Beautiful day in Portland'
-        },
-        {
-            'author': {'username': 'Suzy'},
-            'body': 'Not really'
-        },
-        {
-            'author': {'username': 'Adam'},
-            'body': '...'
-        }
-    ]
-    return render_template('index.html', user=user, posts=posts)
+def table():
+    return render_template('table.html', data=df2)
 
 
 if __name__ == '__main__':
