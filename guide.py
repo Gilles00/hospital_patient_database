@@ -49,7 +49,6 @@ print(columns)
 df2 = pd.DataFrame(ResultSet2)
 df2.columns = columns
 
-
 @app.route('/')
 # @app.route('/index')
 # def index():
@@ -70,9 +69,13 @@ df2.columns = columns
 #         }
 #     ]
 #     return render_template('index.html', user=user, posts=posts)
-
+@app.route('/')
 def table():
-    return render_template('table.html', data=df2)
+    return render_template('table.html', data=df2, heading="My Database", table_name=employees)
+
+# @app.route('/table2')
+# def table2():
+#     return render_template('table.html', data=df3, heading="My Database", table_name=hospitals)
 
 
 if __name__ == '__main__':
