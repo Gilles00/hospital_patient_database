@@ -37,7 +37,6 @@ ResultProxy = connection.execute(query)
 ResultSet = ResultProxy.fetchall()
 
 # df = pd.DataFrame(ResultSet)
-# print(df)
 
 
 # Filtering queries (using where)
