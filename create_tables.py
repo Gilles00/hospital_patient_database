@@ -42,6 +42,7 @@ metadata = sq.MetaData()
 hospitals = sq.Table('hospitals', metadata, sq.Column('Hospital_ID', sq.Integer(), primary_key=True),  # maybe do a sequence here
                      sq.Column('Hospital_Name', sq.String(225), nullable=False),
                      sq.Column('Street', sq.String(225), nullable=False),
+                     sq.Column('City', sq.String(225), nullable=False),
                      sq.Column('Zipcode', sq.Integer(), nullable=False),
                      sq.Column('State', sq.String(225), nullable=False),  # Look into char
                      sq.Column('Patient_Nurse_Ratio', sq.String(225), nullable=True),
